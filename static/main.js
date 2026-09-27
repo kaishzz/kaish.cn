@@ -1,78 +1,55 @@
-var windowWidth = $(window).width();
 layer.config({
   extend: "kzhomepage/style.css", //加载扩展样式
   skin: "layer-ext-kzhomepage",
 });
 
-const handleNavAction = function (btn) {
-  const type = String(btn.attr("data-window") || "").trim().toLowerCase(); // pop current newtab
-  const rawContent = String(btn.attr("data-href") || "").trim();
+const openNavPopup = function (btn) {
+  const rawContent = btn.attr("data-href");
   const content = rawContent.startsWith("//")
     ? `${window.location.protocol}${rawContent}`
     : rawContent;
+  const title = btn.attr("data-title");
 
-  if (!content) {
-    return;
-  }
+  layer.open({
+    type: 1,
+    title: title,
+    shadeClose: false,
+    anim: 4,
+    closeBtn: 2,
+    isOutAnim: false,
+    area: ["80%", "90%"],
+    content: '<div class="kz-pop-frame-shell"></div>',
+    success: function (layero) {
+      const contentBox = layero.find(".layui-layer-content");
+      const frameShell = layero.find(".kz-pop-frame-shell");
+      const iframe = $(
+        '<iframe class="kz-pop-frame" scrolling="auto" allowtransparency="true" frameborder="0"></iframe>'
+      );
 
-  switch (type) {
-    case "pop": {
-      const title = btn.attr("data-title");
-      const shadeClose = btn.attr("data-shade") === "true";
-      const anim = btn.attr("data-anim") ? btn.attr("data-anim") * 1 : 4;
-      const area_w = btn.attr("data-area-w") ? btn.attr("data-area-w") : "80%";
-      const area_h = btn.attr("data-area-h") ? btn.attr("data-area-h") : "90%";
-      layer.open({
-        type: 1,
-        title: title,
-        shadeClose: shadeClose,
-        anim: anim,
-        closeBtn: 2,
-        isOutAnim: false,
-        area: [area_w, area_h],
-        content: '<div class="kz-pop-frame-shell"></div>',
-        success: function (layero) {
-          const contentBox = layero.find(".layui-layer-content");
-          const frameShell = layero.find(".kz-pop-frame-shell");
-          const iframe = $(
-            '<iframe class="kz-pop-frame" scrolling="auto" allowtransparency="true" frameborder="0"></iframe>'
-          );
-
-          contentBox.css({
-            padding: 0,
-            overflow: "hidden",
-          });
-          frameShell.css({
-            width: "100%",
-            height: "100%",
-          });
-          iframe.css({
-            display: "block",
-            width: "100%",
-            height: "100%",
-            border: "none",
-          });
-
-          // Apply sandbox before navigation so third-party pages cannot replace the top window.
-          iframe.attr("sandbox", "allow-forms allow-scripts allow-same-origin");
-          iframe.attr("referrerpolicy", "strict-origin-when-cross-origin");
-          iframe.attr("title", title || "popup-frame");
-
-          frameShell.append(iframe);
-          iframe.attr("src", content);
-        },
+      contentBox.css({
+        padding: 0,
+        overflow: "hidden",
       });
-      break;
-    }
-    case "current":
-      window.location.assign(content);
-      break;
-    case "newtab":
-      window.open(content, "_blank", "noopener,noreferrer");
-      break;
-    default:
-      break;
-  }
+      frameShell.css({
+        width: "100%",
+        height: "100%",
+      });
+      iframe.css({
+        display: "block",
+        width: "100%",
+        height: "100%",
+        border: "none",
+      });
+
+      // Apply sandbox before navigation so third-party pages cannot replace the top window
+      iframe.attr("sandbox", "allow-forms allow-scripts allow-same-origin");
+      iframe.attr("referrerpolicy", "strict-origin-when-cross-origin");
+      iframe.attr("title", title);
+
+      frameShell.append(iframe);
+      iframe.attr("src", content);
+    },
+  });
 };
 
 // Nav buttons (touch + click, deduplicated for mobile browsers)
@@ -86,7 +63,7 @@ $(document).on("touchend click", ".kz-nav-btn", function (event) {
   }
 
   event.stopPropagation();
-  handleNavAction($(this));
+  openNavPopup($(this));
 });
 
 $.ajax({
@@ -181,17 +158,3 @@ $.ajax({
     bindVolumeDragFix(ap);
   },
 });
-
-if (typeof hitokoto_api === "string" && hitokoto_api) {
-  fetch(hitokoto_api)
-    .then((response) => response.json())
-    .then((data) => {
-      const hitokoto = document.getElementById("hitokoto_text");
-      if (!hitokoto) {
-        return;
-      }
-      hitokoto.href = "https://hitokoto.cn/?uuid=" + data.uuid;
-      hitokoto.innerText = data.hitokoto;
-    })
-    .catch(console.error);
-}

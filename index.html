@@ -30,10 +30,6 @@
             background-image: url("./static/images/fbg.jpg");
         }
 
-        .kz-video {
-            /* 背景视频, none: 不显示 unset 显示 */
-            display: none;
-        }
     </style>
     <script>
         // 音乐设置
@@ -47,19 +43,11 @@
         let music_volume = 0.2;                                     // 默认音量
         let music_autoplay = false;                                 // 自动播放
         let music_loop = "all";                                     // 音频循环播放, 可选值: 'all', 'one', 'none' , 分别为全部循环, 单曲循环, 不循环
-
-        // 一言设置
-        // let hitokoto_api = "https://v1.hitokoto.cn"; // 一言API
     </script>
     <!-- end 自定义设置 -->
 </head>
 
 <body>
-    <!-- 
-    <div class="kz-video">
-        <video src="./static/video/xxx.mp4" autoplay="autoplay" loop muted playsinline="" webkit-playsinline=""></video>
-    </div>
-    -->
     <div id="main" class="container">
         <div class="row my-card justify-content-center">
             <div class="col-lg-4 photo-bg"></div>
@@ -70,17 +58,16 @@
                 <p>
                     说太多不如沉默, 想太多我也会难过.
                 </p>
-                <!-- <p id="hitokoto_text">:D 一言获取中...</p> -->
                 <div class="container-fluid">
                     <div class="row">
                         <!-- 导航按钮组 -->
-                        <button type="button" class="kz-nav-btn btn btn-secondary col-lg-4" data-window="pop"
+                        <button type="button" class="kz-nav-btn btn btn-secondary col-lg-4"
                             data-href="//blog.kaish.cn" data-title="Blog">Blog</button>
 
-                        <button type="button" class="kz-nav-btn btn btn-primary col-lg-4" data-window="pop"
+                        <button type="button" class="kz-nav-btn btn btn-primary col-lg-4"
                             data-href="//music.163.com/#/playlist?id=5028688879" data-title="Netease">Netease</button>
 
-                        <button type="button" class="kz-nav-btn btn btn-success col-lg-4" data-window="pop"
+                        <button type="button" class="kz-nav-btn btn btn-success col-lg-4"
                             data-href="//blog.kaish.cn/about" data-title="About">About</button>
                         <!-- end 导航按钮组 -->
                     </div>

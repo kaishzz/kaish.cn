@@ -95,24 +95,6 @@ footer p {
     color: var(--text-sub);
 }
 
-/* 视频背景 */
-.kz-video {
-    display: none;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.kz-video video {
-    min-width: 100%;
-    min-height: 100%;
-    background-size: cover;
-    width: auto;
-    height: auto;
-}
-
 .my-card {
     border-radius: 20px;
     overflow: hidden;
@@ -136,10 +118,6 @@ footer p {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-}
-
-strike {
-    color: red;
 }
 
 .btn {
@@ -196,21 +174,13 @@ strike {
     padding-left: 0;
 }
 
-.social p {
-    margin-bottom: 0;
-}
-
 .social li {
     list-style: none;
     float: left;
     margin-right: 15px;
 }
 
-.card-text {
-    margin-bottom: 20px;
-}
-
-.social .fa {
+.social i {
     font-size: 24px;
     width: 38px;
     height: 38px;
@@ -226,7 +196,7 @@ strike {
     transition: all .2s ease;
 }
 
-.social .fa:hover {
+.social i:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 22px rgba(22, 32, 45, 0.2);
 }
@@ -269,11 +239,6 @@ footer p {
     text-decoration: underline;
 }
 
-#kaygb-blog-a,
-#kaygb-mail-a {
-    display: none;
-}
-
 @media (max-width: 1199px) {
     body {
         min-height: 600px;
@@ -284,7 +249,7 @@ footer p {
     }
 
     h2,
-    .social .fa {
+    .social i {
         font-size: 20px;
     }
 
@@ -383,7 +348,7 @@ footer p {
         margin-right: 12px;
     }
 
-    .social .fa {
+    .social i {
         width: 34px;
         height: 34px;
     }
@@ -399,16 +364,6 @@ footer p {
 
     .beian-links {
         gap: 8px;
-    }
-
-    #kaygb-blog-a,
-    #kaygb-mail-a {
-        display: block;
-    }
-
-    #kaygb-blog,
-    #kaygb-mail {
-        display: none;
     }
 }
 
@@ -472,19 +427,4 @@ footer p {
         font-size: 11px;
         line-height: 1.35;
     }
-}
-
-#frame {
-    width: 50%;
-    height: 50vh;
-    margin: 0;
-    background: #fff;
-    position: fixed;
-    z-index: 999;
-    top: 5%;
-    left: 5%;
-}
-
-#aplayer {
-    z-index: 20000000;
 }
